@@ -42,4 +42,7 @@ Route::group(['prefix' =>  'user'], function (){
     Route::get('/{id}/edit', [UserController::class, 'edit']);
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
+    Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit']);
+    Route::post('/kategori/edit', [KategoriController::class, 'update']);
+    Route::get('/kategori/hapus/{id}', [KategoriController::class, 'delete']);
 });
