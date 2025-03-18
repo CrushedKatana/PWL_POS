@@ -22,7 +22,7 @@ class KategoriController extends Controller
 
         $row = DB::table('m_kategori')->where('kategori_kode', 'SNK')->delete();
         return 'Delete data berhasil. Jumlah data yang dihapus: ' . $row . ' baris';
-
+        
        
     }
 }
