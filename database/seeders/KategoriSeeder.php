@@ -13,19 +13,34 @@ class KategoriSeeder extends Seeder
      */
     public function run(): void
     {
-        $kategori = [
-            ['Elektronik', 'eletronik'],
-            ['Pakaian', 'pakaian'],
-            ['Aksesoris', 'aksesoris'],
-            ['Buku', 'buku'],
-            ['Alat Tulis', 'alat_tulis'],
+        $data = [
+            [
+                'kategori_id' => 1,
+                'kategori_kode' => 'KTG001',
+                'kategori_nama' => 'Elektronik',
+            ],
+            [
+                'kategori_id' => 2,
+                'kategori_kode' => 'KTG002',
+                'kategori_nama' => 'Pakaian',
+            ],
+            [
+                'kategori_id' => 3,
+                'kategori_kode' => 'KTG003',
+                'kategori_nama' => 'Makanan',
+            ],
+            [
+                'kategori_id' => 4,
+                'kategori_kode' => 'KTG004',
+                'kategori_nama' => 'Minuman',
+            ],
+            [
+                'kategori_id' => 5,
+                'kategori_kode' => 'KTG005',
+                'kategori_nama' => 'Peralatan Rumah',
+            ],
         ];
 
-        foreach ($kategori as $item) {
-            DB::table('m_kategori')->insert([
-                'kategori_nama' => $item[0],
-                'kategori_kode' => $item[1],
-            ]);
-        }
+        DB::table('m_kategori')->insert($data);
     }
 }
