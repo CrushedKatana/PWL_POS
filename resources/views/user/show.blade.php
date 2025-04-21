@@ -1,11 +1,9 @@
 @extends('layouts.template')
 
 @section('content')
-
 <div class="card card-outline card-primary">
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
-        <div class="card-tools"></div>
     </div>
     <div class="card-body">
         @empty($user)
@@ -40,10 +38,10 @@
         <a href="{{ url('user') }}" class="btn btn-sm btn-default mt-2">Kembali</a>
     </div>
 </div>
-
 @endsection
 
 @push('css')
 @endpush
+
 @push('js')
 @endpush

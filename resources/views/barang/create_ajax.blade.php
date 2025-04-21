@@ -4,43 +4,40 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Barang</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Kategori Barang</label>
+                    <label>Kategori</label>
                     <select name="kategori_id" id="kategori_id" class="form-control" required>
-                        <option value="">- Pilih Level -</option>
+                        <option value="">- Pilih Kategori -</option>
                         @foreach ($kategori as $k)
                             <option value="{{ $k->kategori_id }}">{{ $k->kategori_nama }}</option>
                         @endforeach
                     </select>
-                    <small id="error-level_id" class="error-text form-text text-danger"></small>
+                    <small id="error-kategori-id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="barang_kode" id="barang_kode" class="form-control"
-                        required>
-                    <small id="error-barang_kode" class="error-text form-text text-danger"></small>
+                    <label>Kode Barang</label>
+                    <input value="" type="text" name="barang_kode" id="barang_kode" class="form-control" required>
+                    <small id="error-barang-kode" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="barang_nama" id="barang_nama" class="form-control"
-                        required>
-                    <small id="error-barang_nama" class="error-text form-text text-danger"></small>
+                    <label>Nama Barang</label>
+                    <input value="" type="text" name="barang_nama" id="barang_nama" class="form-control" required>
+                    <small id="error-barang-nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Harga Beli</label>
-                    <input value="" type="number" name="harga_beli" id="harga_beli" class="form-control"
-                        required>
-                    <small id="error-harga_beli" class="error-text form-text text-danger"></small>
+                    <input value="" type="number" name="harga_beli" id="harga_beli" class="form-control" required>
+                    <small id="error-harga-beli" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Harga Jual</label>
-                    <input value="" type="number" name="harga_jual" id="harga_jual" class="form-control"
-                        required>
-                    <small id="error-harga_jual" class="error-text form-text text-danger"></small>
+                    <input value="" type="number" name="harga_jual" id="harga_jual" class="form-control" required>
+                    <small id="error-harga-jual" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -51,38 +48,21 @@
     </div>
 </form>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#form-tambah").validate({
             rules: {
-                kategori_id: {
-                    required: true,
-                    number: true
-                },
-                barang_kode: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 10
-                },
-                barang_nama: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 100
-                },
-                harga_beli: {
-                    required: true,
-                    number: true
-                },
-                harga_jual: {
-                    required: true,
-                    number: true
-                },
+                barang_kode: { required: true, minlength: 3, maxlength: 10 },
+                barang_nama: { required: true, maxlength: 100 },
+                harga_beli: { required: true },
+                harga_jual: { required: true },
+                kategori_id: { required: true }
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 $.ajax({
                     url: form.action,
                     type: form.method,
                     data: $(form).serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status) {
                             $('#myModal').modal('hide');
                             Swal.fire({
@@ -93,7 +73,7 @@
                             dataBarang.ajax.reload();
                         } else {
                             $('.error-text').text('');
-                            $.each(response.msgField, function(prefix, val) {
+                            $.each(response.msgField, function (prefix, val) {
                                 $('#error-' + prefix).text(val[0]);
                             });
                             Swal.fire({
@@ -107,14 +87,14 @@
                 return false;
             },
             errorElement: 'span',
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');
                 element.closest('.form-group').append(error);
             },
-            highlight: function(element, errorClass, validClass) {
+            highlight: function (element, errorClass, validClass) {
                 $(element).addClass('is-invalid');
             },
-            unhighlight: function(element, errorClass, validClass) {
+            unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             }
         });

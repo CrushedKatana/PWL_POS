@@ -4,29 +4,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Supplier</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="supplier_kode" id="supplier_kode" class="form-control"
-                        required>
-                    <small id="error-supplier_kode" class="error-text form-text text-danger"></small>
+                    <label>Supplier Kode</label>
+                    <input value="" type="text" name="supplier_kode" id="supplier_kode" class="form-control" required>
+                    <small id="error-supplier-kode" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="supplier_nama" id="supplier_nama" class="form-control"
-                        required>
-                    <small id="error-supplier_nama" class="error-text form-text text-danger"></small>
+                    <label>Supplier Nama</label>
+                    <input value="" type="text" name="supplier_nama" id="supplier_nama" class="form-control" required>
+                    <small id="error-supplier-nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Alamat</label>
-                    <input value="" type="text" name="supplier_alamat" id="supplier_alamat"
-                        class="form-control" required>
-                    <small id="error-supplier_alamat" class="error-text form-text text-danger"></small>
+                    <label>Supplier Alamat</label>
+                    <input value="" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control"
+                        required>
+                    <small id="error-supplier-alamat" class="error-text form-text text-danger"></small>
                 </div>
-            </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -35,30 +33,20 @@
     </div>
 </form>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#form-tambah").validate({
             rules: {
-                supplier_kode: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 10
-                },
-                supplier_nama: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 100
-                },
-                supplier_alamat: {
-                    required: true,
-                    maxlength: 255
-                },
+                supplier_kode: { required: true, minlength: 4, maxlength: 10 },
+                supplier_nama: { required: true, maxlength: 100 },
+                supplier_alamat: { required: true },
+                supplier_telepon: { required: true, maxlength: 15 }
             },
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 $.ajax({
                     url: form.action,
                     type: form.method,
                     data: $(form).serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status) {
                             $('#myModal').modal('hide');
                             Swal.fire({
@@ -69,7 +57,7 @@
                             dataSupplier.ajax.reload();
                         } else {
                             $('.error-text').text('');
-                            $.each(response.msgField, function(prefix, val) {
+                            $.each(response.msgField, function (prefix, val) {
                                 $('#error-' + prefix).text(val[0]);
                             });
                             Swal.fire({
@@ -83,14 +71,14 @@
                 return false;
             },
             errorElement: 'span',
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');
                 element.closest('.form-group').append(error);
             },
-            highlight: function(element, errorClass, validClass) {
+            highlight: function (element, errorClass, validClass) {
                 $(element).addClass('is-invalid');
             },
-            unhighlight: function(element, errorClass, validClass) {
+            unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             }
         });
