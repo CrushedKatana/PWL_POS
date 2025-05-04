@@ -366,7 +366,7 @@
      public function export_excel()
      {
          // ambil data barang yang akan di export
-         $barang = BarangModel::select('kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
+         $barang = BarangModel::select('kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'barang id')
              ->orderBy('kategori_id')
              ->with('kategori')
              ->get();
@@ -388,11 +388,12 @@
          $baris = 2; // baris data dimulai dari baris ke 2
          foreach ($barang as $key => $value) {
              $sheet->setCellValue('A' . $baris, $no);
-             $sheet->setCellValue('B' . $baris, $value->barang_kode);
-             $sheet->setCellValue('C' . $baris, $value->barang_nama);
-             $sheet->setCellValue('D' . $baris, $value->harga_beli);
-             $sheet->setCellValue('E' . $baris, $value->harga_jual);
-             $sheet->setCellValue('F' . $baris, $value->kategori->kategori_nama); // ambil nama kategori
+             $sheet->setCellValue('B' . $baris, $value->barang_id);
+             $sheet->setCellValue('C' . $baris, $value->barang_kode);
+             $sheet->setCellValue('D' . $baris, $value->barang_nama);
+             $sheet->setCellValue('E' . $baris, $value->harga_beli);
+             $sheet->setCellValue('F' . $baris, $value->harga_jual);
+             $sheet->setCellValue('G' . $baris, $value->kategori->kategori_nama); // ambil nama kategori
              $baris++;
              $no++;
          }
